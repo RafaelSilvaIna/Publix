@@ -1,6 +1,6 @@
 # Publix - Plataforma de Escrita de Artigos
 
-![Publix Logo](publix-logo.png)
+![Publix Logo](img/publix-logo.png)
 
 Olá! Bem-vindo ao **Publix**, a plataforma onde você pode escrever e compartilhar seus artigos de forma simples e gratuita. Sou o único desenvolvedor por trás desse projeto e, apesar de estar em uma fase inicial de desenvolvimento, estou muito empolgado com o que estamos construindo juntos!
 
