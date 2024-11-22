@@ -1,45 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Chat Interface</title>
+    <title>Admin - Sistema de Contato</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .chat-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .chat-item {
-            cursor: pointer;
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .chat-item:hover {
-            background-color: #f0f0f0;
-        }
-        .active {
-            background-color: #e6f7ff;
-        }
+        #login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#chat-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.chat-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.chat-item:hover {
+    background-color: #f5f5f5;
+}
+
+#reply-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#reply-text {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Admin Chat Interface</h1>
-        <div id="login-form">
+        <h1>Admin - Sistema de Contato</h1>
+        <div id="login-container">
             <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="password" placeholder="Senha" required>
             <button id="login-btn">Login</button>
         </div>
         <div id="admin-panel" style="display: none;">
-            <div class="chat-list" id="chat-list"></div>
+            <div id="chat-list"></div>
             <div id="chat-container"></div>
             <form id="reply-form" style="display: none;">
-                <textarea id="reply-text" placeholder="Type your reply..." required></textarea>
-                <button type="submit">Send Reply</button>
+                <textarea id="reply-text" placeholder="Digite sua resposta" required></textarea>
+                <button type="submit">Enviar Resposta</button>
             </form>
         </div>
     </div>
@@ -48,7 +82,7 @@
     <script type="module" src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, onChildAdded, push } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 
@@ -66,27 +100,30 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
-const loginForm = document.getElementById('login-form');
+const loginContainer = document.getElementById('login-container');
 const adminPanel = document.getElementById('admin-panel');
+const loginBtn = document.getElementById('login-btn');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
 const chatList = document.getElementById('chat-list');
 const chatContainer = document.getElementById('chat-container');
 const replyForm = document.getElementById('reply-form');
+const replyText = document.getElementById('reply-text');
 
 let currentChatId = null;
 
-document.getElementById('login-btn').addEventListener('click', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    
+loginBtn.addEventListener('click', () => {
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
     signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-            loginForm.style.display = 'none';
+            loginContainer.style.display = 'none';
             adminPanel.style.display = 'block';
             loadChats();
         })
         .catch((error) => {
-            alert('Authentication failed: ' + error.message);
+            alert('Erro de autenticação: ' + error.message);
         });
 });
 
@@ -97,7 +134,7 @@ function loadChats() {
         
         const chatItem = document.createElement('div');
         chatItem.classList.add('chat-item');
-        chatItem.textContent = chat.subject;
+        chatItem.textContent = `${chat.subject} - ${new Date(chat.timestamp).toLocaleString()}`;
         chatItem.addEventListener('click', () => loadChat(chatId));
         
         chatList.appendChild(chatItem);
@@ -107,8 +144,8 @@ function loadChats() {
 function loadChat(chatId) {
     currentChatId = chatId;
     chatContainer.innerHTML = '';
-    replyForm.style.display = 'flex';
-    
+    replyForm.style.display = 'block';
+
     const chatRef = ref(db, `chats/${chatId}`);
     onChildAdded(chatRef, (snapshot) => {
         const message = snapshot.val();
@@ -119,43 +156,31 @@ function loadChat(chatId) {
 function displayMessage(message) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', message.sender === 'user' ? 'user-message' : 'admin-message');
-    
-    messageElement.innerHTML = `
-        <p><strong>${message.subject}</strong></p>
+
+    const content = `
+        <h3>${message.subject || 'Resposta'}</h3>
         <p>${message.description || message.text}</p>
+        ${message.media ? message.media.map(item => item.startsWith('data:image') 
+            ? `<img src="${item}" alt="Uploaded image" class="preview-item">` 
+            : `<video src="${item}" controls class="preview-item"></video>`).join('') : ''}
+        <small>${new Date(message.timestamp).toLocaleString()}</small>
     `;
-    
-    if (message.media && message.media.length > 0) {
-        message.media.forEach(media => {
-            if (media.type.startsWith('image')) {
-                const img = document.createElement('img');
-                img.src = media.data;
-                messageElement.appendChild(img);
-            } else if (media.type.startsWith('video')) {
-                const video = document.createElement('video');
-                video.src = media.data;
-                video.controls = true;
-                messageElement.appendChild(video);
-            }
-        });
-    }
-    
+
+    messageElement.innerHTML = content;
     chatContainer.appendChild(messageElement);
 }
 
 replyForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    const replyText = document.getElementById('reply-text').value;
-    
+
     const reply = {
-        text: replyText,
+        text: replyText.value,
         timestamp: Date.now(),
         sender: 'admin'
     };
-    
+
     push(ref(db, `chats/${currentChatId}`), reply);
-    replyForm.reset();
+    replyText.value = '';
 });
 
 
