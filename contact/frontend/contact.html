@@ -3,79 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato via WhatsApp</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sistema de Contato|Publix</title>
     <style>
-        body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+        :root {
+    --primary-color: #4CAF50;
+    --secondary-color: #45a049;
+    --background-color: #f2f2f2;
+    --text-color: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 h1 {
-    font-size: 2rem;
-    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
 }
 
-.contact-form, .admin-panel {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
 }
 
 button {
-    font-size: 1rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+#preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.preview-item {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+}
+
+#chat-container {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    margin-bottom: 10px;
     padding: 10px;
+    border-radius: 4px;
 }
 
-.chat-item {
-    background-color: #f1f1f1;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
+.user-message {
+    background-color: #e6f3ff;
+    text-align: right;
 }
 
-.chat-item img {
-    max-width: 100%;
-    height: auto;
+.admin-message {
+    background-color: #f0f0f0;
 }
 
-input[type="text"], textarea {
-    border-radius: 5px;
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    form {
+        padding: 15px;
+    }
 }
 
-textarea {
-    min-height: 100px;
-}
 
-.file-input {
-    border-radius: 5px;
-}
     </style>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="contact-form shadow-sm p-4 rounded">
-            <h1 class="text-center mb-4">Entre em Contato</h1>
-            <form id="contactForm">
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="subject" placeholder="Assunto" required />
-                </div>
-                <div class="mb-3">
-                    <textarea class="form-control" id="description" placeholder="Descrição" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <input type="file" class="form-control" id="fileInput" accept="image/*,video/*">
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Enviar Mensagem</button>
-            </form>
-        </div>
+    <div class="container">
+        <h1>Entre em Contato</h1>
+        <form id="contact-form">
+            <input type="text" id="subject" placeholder="Assunto" required>
+            <textarea id="description" placeholder="Descrição" required></textarea>
+            <input type="file" id="media-upload" accept="image/*,video/*" multiple>
+            <div id="preview-container"></div>
+            <button type="submit">Enviar Mensagem</button>
+        </form>
+        <div id="chat-container"></div>
     </div>
 
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
     <script type="module">
-        // Firebase Configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBpPGU8M2hflIiE8m9KIOchNRtVZfauhh4",
   authDomain: "publix-e67d5.firebaseapp.com",
@@ -86,101 +150,89 @@ const firebaseConfig = {
   measurementId: "G-5DL50H1T1F"
 };
 
-// Inicializando o Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-// Autenticação de usuário (para admin)
-function authenticateAdmin() {
-  const user = auth.currentUser;
-  if (!user) {
-    window.location.href = "index.html"; // Redireciona para o login (não autenticado)
-  }
-}
+const contactForm = document.getElementById('contact-form');
+const subjectInput = document.getElementById('subject');
+const descriptionInput = document.getElementById('description');
+const mediaUpload = document.getElementById('media-upload');
+const previewContainer = document.getElementById('preview-container');
+const chatContainer = document.getElementById('chat-container');
 
-// Função para enviar mensagens
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  const subject = document.getElementById("subject").value;
-  const description = document.getElementById("description").value;
-  const fileInput = document.getElementById("fileInput");
-  const file = fileInput.files[0];
+    const subject = subjectInput.value;
+    const description = descriptionInput.value;
+    const media = await Promise.all(Array.from(mediaUpload.files).map(fileToBase64));
 
-  // Codificando o arquivo para base64
-  if (file) {
-    const reader = new FileReader();
-    reader.onloadend = function () {
-      const base64File = reader.result.split(",")[1]; // Remover o prefixo base64
-      saveMessageToDatabase(subject, description, base64File);
+    const message = {
+        subject,
+        description,
+        media,
+        timestamp: Date.now(),
+        sender: 'user'
     };
-    reader.readAsDataURL(file);
-  } else {
-    saveMessageToDatabase(subject, description);
-  }
+
+    push(ref(db, 'chats'), message);
+
+    subjectInput.value = '';
+    descriptionInput.value = '';
+    mediaUpload.value = '';
+    previewContainer.innerHTML = '';
 });
 
-// Salva a mensagem no Firebase Realtime Database
-function saveMessageToDatabase(subject, description, base64File = "") {
-  const newMessageRef = db.ref("messages").push();
-  newMessageRef.set({
-    subject: subject,
-    description: description,
-    file: base64File,
-    timestamp: Date.now(),
-  }).then(() => {
-    alert("Mensagem enviada com sucesso!");
-    document.getElementById("contactForm").reset(); // Limpar formulário
-  }).catch((error) => {
-    console.error("Erro ao enviar mensagem: ", error);
-    alert("Houve um erro ao enviar sua mensagem.");
-  });
-}
+mediaUpload.addEventListener('change', (e) => {
+    previewContainer.innerHTML = '';
+    Array.from(e.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const previewItem = document.createElement(file.type.startsWith('image/') ? 'img' : 'video');
+            previewItem.src = event.target.result;
+            previewItem.classList.add('preview-item');
+            if (previewItem.tagName === 'VIDEO') {
+                previewItem.setAttribute('controls', '');
+            }
+            previewContainer.appendChild(previewItem);
+        };
+        reader.readAsDataURL(file);
+    });
+});
 
-// Função para carregar mensagens no painel de administração
-function loadMessages() {
-  db.ref("messages").on("value", (snapshot) => {
-    const chatsContainer = document.getElementById("chats");
-    chatsContainer.innerHTML = ""; // Limpa a lista de chats antes de atualizar
+onChildAdded(ref(db, 'chats'), (snapshot) => {
+    const message = snapshot.val();
+    displayMessage(message);
+});
 
-    snapshot.forEach((childSnapshot) => {
-      const message = childSnapshot.val();
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("chat-item");
-      messageDiv.innerHTML = `
+function displayMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', message.sender === 'user' ? 'user-message' : 'admin-message');
+
+    const content = `
         <h3>${message.subject}</h3>
         <p>${message.description}</p>
-        ${message.file ? `<img src="data:image/png;base64,${message.file}" alt="file" />` : ""}
-        <button onclick="respondToMessage('${childSnapshot.key}')">Responder</button>
-      `;
-      chatsContainer.appendChild(messageDiv);
-    });
-  });
+        ${message.media.map(item => item.startsWith('data:image') 
+            ? `<img src="${item}" alt="Uploaded image" class="preview-item">` 
+            : `<video src="${item}" controls class="preview-item"></video>`).join('')}
+        <small>${new Date(message.timestamp).toLocaleString()}</small>
+    `;
+
+    messageElement.innerHTML = content;
+    chatContainer.appendChild(messageElement);
 }
 
-// Função para responder às mensagens (apenas disponível para admin)
-function respondToMessage(messageId) {
-  const response = prompt("Digite sua resposta:");
-  if (response) {
-    db.ref("messages/" + messageId).update({
-      response: response,
-    }).then(() => {
-      alert("Resposta enviada!");
-    }).catch((error) => {
-      console.error("Erro ao responder mensagem: ", error);
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
     });
-  }
 }
 
-// Executa quando a página é carregada
-window.onload = function () {
-  if (window.location.pathname.includes("admin.html")) {
-    authenticateAdmin();
-    loadMessages();
-  }
-};
+
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
