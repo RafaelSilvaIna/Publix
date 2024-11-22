@@ -1,1 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact|Publix</title>
+    <link rel="stylesheet" href="src.js.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form id="contact-form">
+            <input type="text" id="subject" placeholder="Subject" required>
+            <textarea id="description" placeholder="Description" required></textarea>
+            <input type="file" id="media" accept="image/*,video/*" multiple>
+            <button type="submit">Send Message</button>
+        </form>
+        <div id="chat-container"></div>
+    </div>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+    <script type="module" src="src.js"></script>
+</body>
+</html>
+
 
