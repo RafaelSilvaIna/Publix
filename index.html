@@ -4,395 +4,342 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publix - Plataforma de Publicação de Artigos</title>
-    <link rel="stylesheet" href="src/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+    <style>
+        .hero {
+            background-color: #f8f9fa;
+            padding: 100px 0;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .step-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+        }
+        .cta {
+            background-color: #007bff;
+            color: white;
+            padding: 100px 0;
+        }
+        .social-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="img/publix-logo.png" alt="Publix Logo" class="logo-img">
-                <span class="logo-text">Publix</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#features">Funcionalidades</a></li>
-                <li><a href="#how-it-works">Como Funciona</a></li>
-                <li><a href="#community">Comunidade</a></li>
-                <li><a href="contact/frontend/contact.html">Contato</a></li>
-            </ul>
-            <div class="cta-buttons">
-                <button class="btn btn-secondary">Entrar</button>
-                <button class="btn btn-primary">Cadastre-se</button>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="publix-logo.png" alt="Publix Logo" height="30" class="d-inline-block align-top">
+                    Publix
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" href="#home">Início</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Funcionalidades</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#how-it-works">Como Funciona</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#community">Comunidade</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contato</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <button class="btn btn-outline-primary me-2">Entrar</button>
+                        <button class="btn btn-primary">Cadastre-se</button>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <div class="hero-content" data-aos="fade-up">
-                <h1>Bem-vindo ao Publix</h1>
-                <p>A plataforma gratuita e simples para você escrever, publicar e compartilhar seus artigos.</p>
-                <a href="Auth/Verification.html"><button class="btn btn-cta">Comece a Escrever</button></a>
-            </div>
-            <div class="hero-image" data-aos="fade-left">
-                <img src="hero-image.png" alt="Publix em ação">
-            </div>
-        </section>
-
-        <section id="features" class="features">
-            <h2 data-aos="fade-up">Principais Funcionalidades</h2>
-            <div class="feature-grid">
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-pen-fancy"></i>
-                    <h3>Criação e Publicação de Artigos</h3>
-                    <p>Escreva seus artigos com facilidade, usando uma interface limpa e intuitiva.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-moon"></i>
-                    <h3>Modo Escuro</h3>
-                    <p>Para uma experiência mais confortável durante a leitura e escrita à noite.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-gift"></i>
-                    <h3>Gratuito e Acessível</h3>
-                    <p>Todas as funcionalidades essenciais do Publix são totalmente gratuitas.</p>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-up">
+                        <h1 class="display-4 mb-4">Bem-vindo ao Publix</h1>
+                        <p class="lead mb-4">A plataforma gratuita e simples para você escrever, publicar e compartilhar seus artigos.</p>
+                        <button class="btn btn-primary btn-lg">Comece a Escrever</button>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <img src="hero-image.png" alt="Publix em ação" class="img-fluid">
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="how-it-works" class="how-it-works">
-            <h2 data-aos="fade-up">Como o Publix Funciona</h2>
-            <div class="steps">
-                <div class="step" data-aos="fade-right">
-                    <div class="step-number">1</div>
-                    <h3>Cadastro e Login</h3>
-                    <p>Crie sua conta ou entre rapidamente com suas credenciais de rede social.</p>
-                </div>
-                <div class="step" data-aos="fade-right" data-aos-delay="100">
-                    <div class="step-number">2</div>
-                    <h3>Criação de Artigos</h3>
-                    <p>Use o editor de texto simples e direto para começar a escrever.</p>
-                </div>
-                <div class="step" data-aos="fade-right" data-aos-delay="200">
-                    <div class="step-number">3</div>
-                    <h3>Publicação e Compartilhamento</h3>
-                    <p>Publique seu artigo e compartilhe com a comunidade ou através de links diretos.</p>
-                </div>
-                <div class="step" data-aos="fade-right" data-aos-delay="300">
-                    <div class="step-number">4</div>
-                    <h3>Interação com Outros</h3>
-                    <p>Em breve, você poderá interagir com outros escritores e comentar nos artigos publicados.</p>
+        <section id="features" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5" data-aos="fade-up">Principais Funcionalidades</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-card">
+                            <i class="fas fa-pen-fancy fa-3x mb-3 text-primary"></i>
+                            <h3>Criação e Publicação de Artigos</h3>
+                            <p>Escreva seus artigos com facilidade, usando uma interface limpa e intuitiva.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-card">
+                            <i class="fas fa-moon fa-3x mb-3 text-primary"></i>
+                            <h3>Modo Escuro</h3>
+                            <p>Para uma experiência mais confortável durante a leitura e escrita à noite.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-card">
+                            <i class="fas fa-gift fa-3x mb-3 text-primary"></i>
+                            <h3>Gratuito e Acessível</h3>
+                            <p>Todas as funcionalidades essenciais do Publix são totalmente gratuitas.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="stats" class="stats">
-            <h2 data-aos="fade-up">Estatísticas do Publix</h2>
-            <div class="stats-container">
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Usuários Ativos</h3>
-                    <div class="stat-value" id="activeUsers">0</div>
+        <section id="how-it-works" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5" data-aos="fade-up">Como o Publix Funciona</h2>
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="step" data-aos="fade-right">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h3>Cadastro e Login</h3>
+                                <p>Crie sua conta ou entre rapidamente com suas credenciais de rede social.</p>
+                            </div>
+                        </div>
+                        <div class="step" data-aos="fade-right" data-aos-delay="100">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h3>Criação de Artigos</h3>
+                                <p>Use o editor de texto simples e direto para começar a escrever.</p>
+                            </div>
+                        </div>
+                        <div class="step" data-aos="fade-right" data-aos-delay="200">
+                            <div class="step-number">3</div>
+                            <div>
+                                <h3>Publicação e Compartilhamento</h3>
+                                <p>Publique seu artigo e compartilhe com a comunidade ou através de links diretos.</p>
+                            </div>
+                        </div>
+                        <div class="step" data-aos="fade-right" data-aos-delay="300">
+                            <div class="step-number">4</div>
+                            <div>
+                                <h3>Interação com Outros</h3>
+                                <p>Em breve, você poderá interagir com outros escritores e comentar nos artigos publicados.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Artigos Publicados</h3>
-                    <div class="stat-value" id="publishedArticles">0</div>
-                </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Visualizações Totais</h3>
-                    <div class="stat-value" id="totalViews">0</div>
-                </div>
-            </div>
-            <div class="chart-container" data-aos="fade-up">
-                <canvas id="growthChart"></canvas>
             </div>
         </section>
 
-        <section id="community" class="community">
-            <h2 data-aos="fade-up">Explore a Comunidade</h2>
-            <div class="article-grid">
-                <!-- Artigos serão inseridos dinamicamente via JavaScript -->
+        <section id="stats" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5" data-aos="fade-up">Estatísticas do Publix</h2>
+                <div class="row text-center">
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Usuários Ativos</h3>
+                        <div class="display-4" id="activeUsers">0</div>
+                    </div>
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Artigos Publicados</h3>
+                        <div class="display-4" id="publishedArticles">0</div>
+                    </div>
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                        <h3>Visualizações Totais</h3>
+                        <div class="display-4" id="totalViews">0</div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-lg-8 offset-lg-2">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="community" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5" data-aos="fade-up">Explore a Comunidade</h2>
+                <div class="row" id="articleGrid">
+                    <!-- Artigos serão inseridos dinamicamente via JavaScript -->
+                </div>
             </div>
         </section>
 
         <section id="cta" class="cta">
-            <div class="cta-content" data-aos="fade-up">
-                <h2>Comece a Escrever Hoje</h2>
-                <p>Junte-se à comunidade Publix e compartilhe suas ideias com o mundo.</p>
-                <button class="btn btn-cta">Criar Conta Gratuita</button>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2" data-aos="fade-up">
+                        <h2 class="display-4 mb-4">Comece a Escrever Hoje</h2>
+                        <p class="lead mb-4">Junte-se à comunidade Publix e compartilhe suas ideias com o mundo.</p>
+                        <button class="btn btn-light btn-lg">Criar Conta Gratuita</button>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact" class="contact">
-            <h2 data-aos="fade-up">Fale Conosco</h2>
-            <div class="contact-container">
-                <form class="contact-form" data-aos="fade-right">
-                    <input type="text" placeholder="Seu Nome" required>
-                    <input type="email" placeholder="Seu E-mail" required>
-                    <textarea placeholder="Sua Mensagem" required></textarea>
-                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-                </form>
-                <div class="contact-info" data-aos="fade-left">
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>support@publixapp.com</p>
+        <section id="contact" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5" data-aos="fade-up">Fale Conosco</h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-4" data-aos="fade-right">
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Seu Nome" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Seu E-mail" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="5" placeholder="Sua Mensagem" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                        </form>
                     </div>
-                    <div class="info-item">
-                        <i class="fab fa-twitter"></i>
-                        <p>@PublixApp</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fab fa-instagram"></i>
-                        <p>@PublixApp</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fab fa-facebook"></i>
-                        <p>PublixApp</p>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <div class="mb-4">
+                            <i class="fas fa-envelope me-2"></i>
+                            <span>support@publixapp.com</span>
+                        </div>
+                        <div class="mb-4">
+                            <i class="fab fa-twitter me-2"></i>
+                            <span>@PublixApp</span>
+                        </div>
+                        <div class="mb-4">
+                            <i class="fab fa-instagram me-2"></i>
+                            <span>@PublixApp</span>
+                        </div>
+                        <div class="mb-4">
+                            <i class="fab fa-facebook me-2"></i>
+                            <span>PublixApp</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="publix-logo.png" alt="Publix Logo" class="logo-img">
-                <span class="logo-text">Publix</span>
-            </div>
-            <div class="footer-links">
-                <h3>Links Rápidos</h3>
-                <ul>
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#features">Funcionalidades</a></li>
-                    <li><a href="#how-it-works">Como Funciona</a></li>
-                    <li><a href="#community">Comunidade</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </div>
-            <div class="footer-social">
-                <h3>Siga-nos</h3>
-                <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+    <footer class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="publix-logo.png" alt="Publix Logo" height="30" class="mb-3">
+                    <p>Publix - Sua plataforma de publicação de artigos</p>
                 </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 Publix. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <script <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publix - Plataforma de Publicação de Artigos</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="publix-logo.png" alt="Publix Logo" class="logo-img">
-                <span class="logo-text">Publix</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#features">Funcionalidades</a></li>
-                <li><a href="#how-it-works">Como Funciona</a></li>
-                <li><a href="#community">Comunidade</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-            <div class="cta-buttons">
-                <button class="btn btn-secondary">Entrar</button>
-                <button class="btn btn-primary">Cadastre-se</button>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content" data-aos="fade-up">
-                <h1>Bem-vindo ao Publix</h1>
-                <p>A plataforma gratuita e simples para você escrever, publicar e compartilhar seus artigos.</p>
-                <button class="btn btn-cta">Comece a Escrever</button>
-            </div>
-            <div class="hero-image" data-aos="fade-left">
-                <img src="hero-image.png" alt="Publix em ação">
-            </div>
-        </section>
-
-        <section id="features" class="features">
-            <h2 data-aos="fade-up">Principais Funcionalidades</h2>
-            <div class="feature-grid">
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-pen-fancy"></i>
-                    <h3>Criação e Publicação de Artigos</h3>
-                    <p>Escreva seus artigos com facilidade, usando uma interface limpa e intuitiva.</p>
+                <div class="col-lg-4 mb-4">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#features">Funcionalidades</a></li>
+                        <li><a href="#how-it-works">Como Funciona</a></li>
+                        <li><a href="#community">Comunidade</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
                 </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-moon"></i>
-                    <h3>Modo Escuro</h3>
-                    <p>Para uma experiência mais confortável durante a leitura e escrita à noite.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-gift"></i>
-                    <h3>Gratuito e Acessível</h3>
-                    <p>Todas as funcionalidades essenciais do Publix são totalmente gratuitas.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="how-it-works" class="how-it-works">
-            <h2 data-aos="fade-up">Como o Publix Funciona</h2>
-            <div class="steps">
-                <div class="step" data-aos="fade-right">
-                    <div class="step-number">1</div>
-                    <h3>Cadastro e Login</h3>
-                    <p>Crie sua conta ou entre rapidamente com suas credenciais de rede social.</p>
-                </div>
-                <div class="step" data-aos="fade-right" data-aos-delay="100">
-                    <div class="step-number">2</div>
-                    <h3>Criação de Artigos</h3>
-                    <p>Use o editor de texto simples e direto para começar a escrever.</p>
-                </div>
-                <div class="step" data-aos="fade-right" data-aos-delay="200">
-                    <div class="step-number">3</div>
-                    <h3>Publicação e Compartilhamento</h3>
-                    <p>Publique seu artigo e compartilhe com a comunidade ou através de links diretos.</p>
-                </div>
-                <div class="step" data-aos="fade-right" data-aos-delay="300">
-                    <div class="step-number">4</div>
-                    <h3>Interação com Outros</h3>
-                    <p>Em breve, você poderá interagir com outros escritores e comentar nos artigos publicados.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="stats" class="stats">
-            <h2 data-aos="fade-up">Estatísticas do Publix</h2>
-            <div class="stats-container">
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Usuários Ativos</h3>
-                    <div class="stat-value" id="activeUsers">0</div>
-                </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Artigos Publicados</h3>
-                    <div class="stat-value" id="publishedArticles">0</div>
-                </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Visualizações Totais</h3>
-                    <div class="stat-value" id="totalViews">0</div>
-                </div>
-            </div>
-            <div class="chart-container" data-aos="fade-up">
-                <canvas id="growthChart"></canvas>
-            </div>
-        </section>
-
-        <section id="community" class="community">
-            <h2 data-aos="fade-up">Explore a Comunidade</h2>
-            <div class="article-grid">
-                <!-- Artigos serão inseridos dinamicamente via JavaScript -->
-            </div>
-        </section>
-
-        <section id="cta" class="cta">
-            <div class="cta-content" data-aos="fade-up">
-                <h2>Comece a Escrever Hoje</h2>
-                <p>Junte-se à comunidade Publix e compartilhe suas ideias com o mundo.</p>
-                <button class="btn btn-cta">Criar Conta Gratuita</button>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <h2 data-aos="fade-up">Fale Conosco</h2>
-            <div class="contact-container">
-                <form class="contact-form" data-aos="fade-right">
-                    <input type="text" placeholder="Seu Nome" required>
-                    <input type="email" placeholder="Seu E-mail" required>
-                    <textarea placeholder="Sua Mensagem" required></textarea>
-                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-                </form>
-                <div class="contact-info" data-aos="fade-left">
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>support@publixapp.com</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fab fa-twitter"></i>
-                        <p>@PublixApp</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fab fa-instagram"></i>
-                        <p>@PublixApp</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fab fa-facebook"></i>
-                        <p>PublixApp</p>
+                <div class="col-lg-4 mb-4">
+                    <h5>Siga-nos</h5>
+                    <div>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="publix-logo.png" alt="Publix Logo" class="logo-img">
-                <span class="logo-text">Publix</span>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2023 Publix. Todos os direitos reservados.</p>
             </div>
-            <div class="footer-links">
-                <h3>Links Rápidos</h3>
-                <ul>
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#features">Funcionalidades</a></li>
-                    <li><a href="#how-it-works">Como Funciona</a></li>
-                    <li><a href="#community">Comunidade</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </div>
-            <div class="footer-social">
-                <h3>Siga-nos</h3>
-                <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 Publix. Todos os direitos reservados.</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <script src="src/javascript/main.js"></script>
-</body>
-</html>
+    <script>
+        // Initialize AOS
+        AOS.init();
 
+        // Sample data for the chart
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'User Growth',
+                    data: [100, 200, 300, 400, 500, 600],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Sample data for statistics
+        document.getElementById('activeUsers').textContent = '10,000+';
+        document.getElementById('publishedArticles').textContent = '50,000+';
+        document.getElementById('totalViews').textContent = '1M+';
+
+        // Sample data for community articles
+        const articles = [
+            { title: 'Como escrever um artigo eficaz', author: 'João Silva' },
+            { title: 'Dicas para aumentar seu público leitor', author: 'Maria Santos' },
+            { title: 'A importância da revisão no processo de escrita', author: 'Pedro Oliveira' }
+        ];
+
+        const articleGrid = document.getElementById('articleGrid');
+        articles.forEach(article => {
+            const articleElement = document.createElement('div');
+            articleElement.className = 'col-md-4 mb-4';
+            articleElement.innerHTML = `
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${article.title}</h5>
+                        <p class="card-text">Por ${article.author}</p>
+                        <a href="#" class="btn btn-outline-primary">Ler mais</a>
+                    </div>
+                </div>
+            `;
+            articleGrid.appendChild(articleElement);
+        });
+    </script>
 </body>
 </html>
